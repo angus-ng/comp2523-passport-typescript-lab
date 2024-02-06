@@ -11,7 +11,6 @@ const githubStrategy: GitHubStrategy = new GitHubStrategy(
         passReqToCallback: true,
     },
     
-    /* FIX ME 😭 */
     async (req: Request, accessToken: string, refreshToken: string, profile: any, done: VerifyCallback) => {},
 );
 
