@@ -12,11 +12,14 @@ const getUserByEmailIdAndPassword = (email: string, password: string) => {
   }
 };
 const getUserById = (id:any) => {
-  let user = userModel.findById(id);
-  if (user) {
-    return user;
+  try{
+    let user = userModel.findById(id);
+    if (user) {
+      return user;
+    }
+} catch (err) {
+    return null;
   }
-  return null;
 };
 
 function isUserValid(user: any, password: string) {
