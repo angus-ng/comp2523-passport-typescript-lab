@@ -1,21 +1,26 @@
+import { RoleTypes } from "../middleware/passportStrategies/localStrategy";
+
 const database = [
   {
     id: 1,
     name: "Jimmy Smith",
     email: "jimmy123@gmail.com",
-    password: "jimmy123!"
+    password: "jimmy123!",
+    role: "admin" as RoleTypes
   },
   {
     id: 2,
     name: "Johnny Doe",
     email: "johnny123@gmail.com",
     password: "johnny123!",
+    role: "user" as RoleTypes
   },
   {
     id: 3,
     name: "Jonathan Chen",
     email: "jonathan123@gmail.com",
-    githubId: 3
+    githubId: 3,
+    role: "user" as RoleTypes
   },
 ];
 
@@ -55,6 +60,7 @@ const userModel = {
           name: name,
           email: email,
           githubId: githubId,
+          role: "user" as RoleTypes
         }
       } catch (err){//otherwise
         newUser = { 
@@ -62,6 +68,7 @@ const userModel = {
           name: name,
           email: email,
           githubId: githubId,
+          role: "user" as RoleTypes
         }
       }
     } else if (password) {
@@ -70,6 +77,7 @@ const userModel = {
         name: name,
         email: email,
         password: password,
+        role: "user" as RoleTypes
       }
     } else {
       throw new Error("missing password or githubId")
