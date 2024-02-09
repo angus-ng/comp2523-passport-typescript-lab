@@ -42,21 +42,21 @@ const userModel = {
     if (user) {
       return user;
     }
-    throw new Error(`Couldn't find user with id: ${id}`);
+    throw new Error(`Couldn't find user with githubId: ${id}`);
   },
 
   createUser: (name: string, email: string, password?: string, githubId?: number) => {
     let newUser;
-    if (githubId) {
+    if (githubId) { 
       try {
-        userModel.findById(githubId)
-        newUser = { 
+        userModel.findById(githubId) //see if id and githubId overlap
+        newUser = { //if overlap
           id: userModel.generateId(),
           name: name,
           email: email,
           githubId: githubId,
         }
-      } catch (err){
+      } catch (err){//otherwise
         newUser = { 
           id: githubId,
           name: name,
@@ -75,7 +75,6 @@ const userModel = {
       throw new Error("missing password or githubId")
     }
     database.push(newUser)
-    console.log(database)
     return newUser;
   },
 

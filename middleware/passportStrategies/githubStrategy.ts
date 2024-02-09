@@ -2,7 +2,7 @@ import { Strategy as GitHubStrategy } from 'passport-github2';
 import { PassportStrategy } from '../../interfaces/index';
 import { Request } from 'express';
 import { VerifyCallback } from 'passport-oauth2';
-import {userModel} from "../../models/userModel";
+import { findOrCreate } from '../../controllers/userController';
 require('dotenv').config()
 
 const githubStrategy: GitHubStrategy = new GitHubStrategy(
@@ -14,13 +14,8 @@ const githubStrategy: GitHubStrategy = new GitHubStrategy(
     },
     
     async (req: Request, accessToken: string, refreshToken: string, profile: any, done: VerifyCallback) => {
-        console.log(profile)
-        console.log(accessToken)
-        console.log(refreshToken)
-        console.log(profile.id)
-        const d = userModel.createUser(profile._json.name, profile._json.email, undefined, 4)
-        console.log(d)
-        done(null, d);
+        const user = findOrCreate(profile.id, profile.displayName, profile._json.email);
+        done(null, user);
     },
 );
 

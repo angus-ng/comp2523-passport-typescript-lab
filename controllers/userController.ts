@@ -21,6 +21,22 @@ const getUserById = (id:any) => {
     return null;
   }
 };
+const findOrCreate = (githubId: number, githubName: string, githubEmail:string) => {
+  try {
+    const user = userModel.findByGithubId(githubId);
+    if (user){
+      return user;
+    } 
+  } catch (err) {
+    if (githubName === null){
+      githubName = "";
+    }
+    if (githubEmail === null){
+      githubEmail = "";
+    }
+      return userModel.createUser(githubName, githubEmail, undefined, githubId);
+  }
+};
 
 function isUserValid(user: any, password: string) {
   return user.password === password;
@@ -29,4 +45,5 @@ function isUserValid(user: any, password: string) {
 export {
   getUserByEmailIdAndPassword,
   getUserById,
+  findOrCreate
 };
