@@ -3,21 +3,6 @@ import { Strategy as LocalStrategy } from "passport-local";
 import { getUserByEmailIdAndPassword, getUserById} from "../../controllers/userController";
 import { PassportStrategy } from '../../interfaces/index';
 
-export type RoleTypes = "user"|"admin";
-
-declare global {
-  namespace Express {
-    interface User {
-      id: number;
-      name: string;
-      email: string;
-      role: RoleTypes;
-      password?: string;
-      githubId?: number;
-    }
-  }
-}
-
 const localStrategy = new LocalStrategy(
   {
     usernameField: "email",

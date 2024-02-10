@@ -1,4 +1,17 @@
-import { RoleTypes } from "../middleware/passportStrategies/localStrategy";
+type RoleTypes = "user"|"admin";
+
+declare global {
+  namespace Express {
+    interface User {
+      id: number;
+      name: string;
+      email: string;
+      role: RoleTypes;
+      password?: string;
+      githubId?: number;
+    }
+  }
+}
 
 const database = [
   {

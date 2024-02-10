@@ -1,0 +1,28 @@
+<style>
+    .session {
+        background-color:lightgray;
+        border-radius:8px;
+        margin-bottom: 8px;
+    }
+    .content {
+        padding: 16px;
+    }
+    button {
+        border-radius:8px;
+    }
+</style>
+<h1 class="mt-4">Admin Dashboard</h1>
+<p class="lead mb-3">Welcome <%= user.name %></p>
+<p>Current active sessions:</p>
+<% Object.keys(allSessions).forEach((sessionId) => { %>
+    <div class="session">
+        <div class="content">
+            <p>Session id: <%= sessionId %></p>
+            <p>User id: <%= allSessions[sessionId].passport.user %></p>
+            <form method="POST" action="/admin/revoke/<%= sessionId %>">
+                <button type="submit" class="btn btn-danger">Revoke Access</button>
+            </form>
+        </div>
+    </div>
+<%})%>
+<a href="/auth/logout" class="btn btn-secondary">Logout</a>
